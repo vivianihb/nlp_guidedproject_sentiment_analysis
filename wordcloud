@@ -1,0 +1,28 @@
+#obtain only the positive reviews
+positive = reviews_df[reviews_df['feedback'] == 1]
+positive
+
+#obtain only the negative reviews
+negative = reviews_df[reviews_df['feedback'] == 0]
+negative
+
+#convert to list format
+sentences = positive['verified_reviews'].tolist()
+len(sentences)
+
+#join all reviews into one large string
+sentences_as_one_string =" ".join(sentences)
+sentences_as_one_string
+
+#positive wordcloud
+from wordcloud import WordCloud
+
+plt.figure(figsize=(20,20))
+plt.imshow(WordCloud().generate(sentences_as_one_string))
+
+#negative wordcloud
+sentences = negative['verified_reviews'].tolist()
+len(sentences)
+sentences_as_one_string =" ".join(sentences)
+plt.figure(figsize = (20,20))
+plt.imshow(WordCloud().generate(sentences_as_one_string))
