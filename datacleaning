@@ -1,0 +1,30 @@
+
+# define a pipeline to clean up all the messages 
+# performs the following: (1) remove punctuation, (2) remove stopwords
+
+def message_cleaning(message):
+    Test_punc_removed = [char for char in message if char not in string.punctuation]
+    Test_punc_removed_join = ''.join(Test_punc_removed)
+    Test_punc_removed_join_clean = [word for word in Test_punc_removed_join.split() if word.lower() not in stopwords.words('english')]
+    return Test_punc_removed_join_clean
+
+reviews_df_clean = reviews_df['verified_reviews'].apply(message_cleaning)
+
+print(reviews_df_clean[5])
+
+from sklearn.feature_extraction.text import CountVectorizer
+
+vectorizer = CountVectorizer(analyzer = message_cleaning)
+reviews_countvectorizer = vectorizer.fit_transform(reviews_df['verified_reviews'])
+
+print(vectorizer.get_feature_names())
+
+print(reviews_countvectorizer.toarray())
+
+reviews_countvectorizer.shape
+
+reviews = pd.DataFrame(reviews_countvectorizer.toarray())
+
+X = reviews
+
+y = reviews_df['feedback']
