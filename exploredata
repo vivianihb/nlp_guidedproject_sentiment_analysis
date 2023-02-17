@@ -1,0 +1,14 @@
+reviews_df.info()
+
+reviews_df.describe()
+
+sns.countplot(x = reviews_df['rating'])
+
+reviews_df['length'] = reviews_df['verified_reviews'].apply(len)
+reviews_df
+
+reviews_df['length'].plot(bins=100, kind='hist')
+
+reviews_df.describe()
+
+sns.countplot(x = reviews_df['feedback'])
